@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP Selection - Carros</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styles for the cars page */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding: 100px 5vw 50px; /* Adjust padding for header */
+            justify-items: center;
+        }
+
+        .car-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistent card size */
+            object-fit: contain; /* Ensures the whole image is visible */
+            margin-bottom: 15px;
+        }
+
+        .car-card h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #beff1b;
+        }
+
+        .car-card .year {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .car-card .price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .car-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            flex-grow: 1; /* Allow features list to take available space */
+        }
+
+        .car-card ul li {
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #e0e0e0;
+        }
+
+        .car-card .buy-btn {
+            background-color: #beff1b;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 80%; /* Make button wider */
+            margin: 0 auto; /* Center button */
+        }
+
+        .car-card .buy-btn:hover {
+            background-color: #a7e600;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .cars-grid {
+                padding: 100px 3vw 50px;
+                gap: 30px;
+            }
+            .car-card {
+                padding: 20px;
+            }
+            .car-card h3 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FP SELECTION</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="carros.html">Carros</a></li>
+                <li><a href="fale-conosco.html">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="cars-grid" id="carsGrid">
+        </main>
+
+    <script>
+        // This script will populate the cars grid
+        const cars = [
+            {
+                image: "./img/carro-1.png",
+                title: "911 Turbo",
+                year: "2023",
+                description: "Explore the 2023 Porsche 911 Turbo, a masterpiece of German engineering. This model boasts a twin-turbocharged 3.8-liter flat-six engine, producing an exhilarating 572 horsepower. It goes from 0 to 60 mph in just 2.7 seconds, offering unmatched performance and a luxurious interior crafted with premium materials. Experience cutting-edge technology and a design that blends classic Porsche lines with modern aesthetics.",
+                price: "R$ 1.500.000",
+                features: [
+                    "Motor: 3.8L Twin-Turbo Flat-Six",
+                    "Potência: 572 hp",
+                    "0-100 km/h: 2.7 segundos",
+                    "Transmissão: PDK de 8 velocidades",
+                    "Velocidade Máx: 330 km/h",
+                    "Interior: Couro, Acabamentos em Fibra de Carbono, Tela Touchscreen de 10.9 polegadas"
+                ],
+                manufacturer: {
+                    name: "Porsche",
+                    history: "Fundada em 1931 por Ferdinand Porsche, a Porsche AG é uma renomada fabricante alemã de automóveis esportivos, SUVs e sedans de luxo. Conhecida por sua engenharia de precisão, desempenho excepcional e design icônico, a Porsche construiu uma reputação inigualável no mundo automotivo. Seus carros, como o lendário 911, são sinônimos de paixão por dirigir e inovação.",
+                    logo: "./img/porsche_logo.png"
+                }
+            },
+            {
+                image: "./img/carro-2.png",
+                title: "Ferrari F8 Tributo",
+                year: "2021",
+                description: "The 2021 Ferrari F8 Tributo is a tribute to raw power and aerodynamic efficiency. Its 3.9-liter twin-turbo V8 engine delivers a staggering 710 horsepower, making it one of the most powerful V8s in Ferrari history. With a top speed of over 211 mph (340 km/h) and a 0-60 mph time of 2.9 seconds, the F8 Tributo offers an unparalleled driving experience. Its design emphasizes performance, with innovative aerodynamic solutions seamlessly integrated into its iconic lines.",
+                price: "R$ 2.800.000",
+                features: [
+                    "Motor: 3.9L Twin-Turbo V8",
+                    "Potência: 710 hp",
+                    "0-100 km/h: 2.9 segundos",
+                    "Transmissão: F1 dupla embreagem de 7 velocidades",
+                    "Velocidade Máx: 340 km/h",
+                    "Interior: Bancos esportivos, Alcantara, Sistema de infoentretenimento avançado"
+                ],
+                manufacturer: {
+                    name: "Ferrari",
+                    history: "A Ferrari S.p.A. é uma montadora italiana de carros esportivos de luxo, fundada por Enzo Ferrari em 1929 como Scuderia Ferrari. A empresa construiu sua reputação nas pistas de corrida, dominando a Fórmula 1, antes de expandir para a produção de carros de rua. Cada Ferrari é uma obra de arte que combina design estonteante, engenharia de ponta e um legado de vitórias, representando o auge do automobilismo.",
+                    logo: "./img/ferrari_logo.png"
+                }
+            },
+            {
+                image: "./img/carro-3.png",
+                title: "Lamborghini Aventador SVJ",
+                year: "2022",
+                description: "Unleash the beast with the 2022 Lamborghini Aventador SVJ. This limited-edition supercar is powered by a naturally aspirated 6.5-liter V12 engine, pushing out an incredible 759 horsepower. It holds the record for the fastest production car on the Nürburgring Nordschleife. The SVJ features advanced active aerodynamics (ALA 2.0) for superior downforce and handling, delivering a truly visceral and unforgettable driving experience.",
+                price: "R$ 4.000.000",
+                features: [
+                    "Motor: 6.5L V12 Aspirado Naturalmente",
+                    "Potência: 759 hp",
+                    "0-100 km/h: 2.8 segundos",
+                    "Transmissão: ISR (Independent Shifting Rod) de 7 velocidades",
+                    "Velocidade Máx: 350 km/h",
+                    "Interior: Carbon skin, Display digital TFT, Sistema de navegação"
+                ],
+                manufacturer: {
+                    name: "Lamborghini",
+                    history: "Automobili Lamborghini S.p.A. é uma marca italiana de carros esportivos de luxo e SUVs fundada em 1963 por Ferruccio Lamborghini. Inicialmente criada para competir com a Ferrari, a Lamborghini rapidamente se estabeleceu com designs extravagantes, motores potentes e um espírito rebelde. Seus carros, frequentemente batizados com nomes de touros de briga, são símbolos de exclusividade, força e ousadia.",
+                    logo: "./img/lamborghini_logo.png"
+                }
+            }
+        ];
+
+        const carsGrid = document.getElementById('carsGrid');
+
+        cars.forEach(car => {
+            const carCard = document.createElement('div');
+            carCard.classList.add('car-card');
+
+            const featuresList = car.features.map(feature => `<li>${feature}</li>`).join('');
+
+            carCard.innerHTML = `
+                <img src="${car.image}" alt="${car.title}">
+                <h3>${car.title}</h3>
+                <span class="year">${car.year}</span>
+                <p class="price">${car.price}</p>
+                <ul>
+                    ${featuresList}
+                </ul>
+                <button class="buy-btn" onclick="location.href='compra.html?car=${cars.indexOf(car)}'">Comprar Agora</button>
+            `;
+            carsGrid.appendChild(carCard);
+        });
+    </script>
+</body>
+</html>

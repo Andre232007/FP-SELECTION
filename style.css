@@ -1,0 +1,338 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(#7f3d9e, #6d00d9);
+    color: #fff;
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+}
+
+header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+    z-index: 10;
+    flex-direction: row; /* Default for larger screens */
+    align-items: center; /* Align items in the header */
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li {
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #beff1b;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px; /* Add some padding for smaller screens */
+    box-sizing: border-box;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80vw;
+    margin: 0 auto;
+    flex-direction: row; /* Default for larger screens */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    gap: 40px; /* Add some gap between elements */
+}
+
+.car-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    margin-left: auto;
+    text-align: left;
+    min-width: 300px; /* Ensure car-info doesn't get too small */
+}
+
+.car-info .year {
+    font-size: 18px;
+    color: #fff;
+    opacity: 0.7;
+}
+
+.car-info h2 {
+    font-size: 3em;
+    line-height: 1.2;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.car-info p {
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+.car-info .info-btn {
+    background-color: #beff1b;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.car-img {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    right: 0; /* Adjusted for better responsiveness */
+    display: flex;
+    justify-content: center; /* Center the image */
+    align-items: center;
+    min-width: 300px; /* Ensure car-img doesn't get too small */
+}
+
+.car-img img {
+    width: 100%; /* Make image responsive */
+    max-width: 600px; /* Keep original max-width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%) rotate(0deg);
+    }
+    50% {
+        transform: translateX(0) rotate(0deg);
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+.arrows {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 20px; /* Add padding to arrows */
+    box-sizing: border-box;
+}
+
+.arrow {
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.arrow img {
+    width: 20px;
+}
+
+.arrow:hover {
+    transform: scale(1.2);
+}
+
+.arrow.left img {
+    transform: scaleX(-1);
+}
+
+.indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.indicators .number {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.indicators ul {
+    display: flex;
+    gap: 10px;
+}
+
+.indicators ul li {
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.indicators ul li.active {
+    opacity: 1;
+}
+
+.line {
+    width: 40%;
+    height: 2px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.line:first-of-type {
+    left: 10%;
+}
+
+.line:last-of-type {
+    right: 10%;
+}
+
+/* --- Media Queries --- */
+
+/* For screens smaller than 768px (common tablet portrait breakpoint) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Stack header items vertically */
+        top: 10px;
+        width: 90vw;
+        text-align: center;
+    }
+
+    header h1 {
+        margin-bottom: 10px;
+    }
+
+    header nav ul {
+        gap: 10px;
+    }
+
+    .content {
+        flex-direction: column; /* Stack content vertically */
+        text-align: center;
+        width: 90vw;
+    }
+
+    .car-info {
+        margin-left: 0; /* Remove auto margin */
+        align-items: center; /* Center content */
+        text-align: center;
+    }
+
+    .car-info h2 {
+        font-size: 2.5em; /* Slightly smaller font size */
+    }
+
+    .car-img {
+        right: 0; /* Reset right position */
+        order: -1; /* Place image above info on mobile */
+        margin-bottom: 20px; /* Add space below image */
+    }
+
+    .line {
+        display: none; /* Hide lines on smaller screens */
+    }
+
+    .arrows {
+        width: calc(100% - 40px); /* Adjust width considering padding */
+        padding: 0; /* Remove padding */
+    }
+
+    .indicators {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    header {
+        top: 5px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    header nav ul {
+        flex-direction: column; 
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .car-info h2 {
+        font-size: 2em;
+    }
+
+    .car-info p {
+        font-size: 10px;
+    }
+
+    .car-info .info-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .arrow {
+        width: 40px;
+        height: 40px;
+    }
+
+    .arrow img {
+        width: 15px;
+    }
+
+    .indicators {
+        font-size: 0.9em;
+        bottom: 5px;
+        gap: 10px;
+    }
+
+    .indicators .number {
+        font-size: 20px;
+    }
+
+    .indicators ul li {
+        width: 15px;
+    }
+}

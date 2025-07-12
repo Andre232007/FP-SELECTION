@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP Selection - Comprar Carro</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-y: scroll; /* Fallback to ensure scrollbar appears when needed */
+        }
+
+        body {
+            overflow-y: auto; /* Allow vertical scrolling if content exceeds viewport */
+            padding-top: 80px; /* Space for the fixed header (adjust based on header height) */
+            padding-bottom: 50px; /* General padding at the bottom of the page */
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(#7f3d9e, #6d00d9);
+        }
+
+        /* Header fixo - ajuste conforme seu estilo real */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            color: #fff;
+            z-index: 1000;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: #beff1b;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Seção principal da compra */
+        .purchase-section {
+            padding: 0 5vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .purchase-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 1200px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .main-purchase-layout {
+            display: flex;
+            flex-direction: column; /* Stack vertically on small screens */
+            gap: 40px;
+            width: 100%;
+        }
+
+        .car-details-and-manufacturer,
+        .customer-form-and-payment {
+            flex: 1;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .car-details-purchase {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .car-details-purchase img {
+            max-width: 100%;
+            width: 350px;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .car-details-info {
+            width: 100%;
+            text-align: center;
+        }
+
+        .car-details-info h2 {
+            font-size: 2.5em;
+            color: #beff1b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .car-details-info .year {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .car-details-info .price {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .car-details-info p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-align: justify;
+            padding: 0 10px;
+        }
+
+        .manufacturer-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .manufacturer-info h3 {
+            font-size: 1.7em;
+            color: #beff1b;
+            margin-bottom: 12px;
+        }
+
+        .manufacturer-info img {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: brightness(1.2);
+        }
+
+        .manufacturer-info p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            text-align: justify;
+            padding: 0 10px;
+        }
+
+        .purchase-form-section {
+            text-align: left;
+            width: 100%;
+        }
+
+        .purchase-form-section h3 {
+            font-size: 1.8em;
+            color: #beff1b;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .purchase-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .purchase-form label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: bold;
+            color: #fff;
+            font-size: 0.95em;
+        }
+
+        .purchase-form input[type="text"],
+        .purchase-form input[type="email"],
+        .purchase-form input[type="tel"],
+        .purchase-form select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 0.9em;
+            box-sizing: border-box;
+        }
+
+        .purchase-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .payment-options {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .payment-options h4 {
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .payment-method.selected {
+            background-color: #beff1b;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .payment-method:hover:not(.selected) {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .submit-btn {
+            background-color: #beff1b;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            margin: 25px auto 0;
+            display: block;
+            font-size: 1em;
+        }
+
+        .submit-btn:hover {
+            background-color: #a7e600;
+        }
+
+        .location-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 100%;
+        }
+
+        .location-info h3 {
+            font-size: 1.8em;
+            color: #beff1b;
+            margin-bottom: 15px;
+        }
+
+        .location-info p {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        .location-info iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            margin-top: 15px;
+        }
+
+        /* Responsividade */
+        @media (min-width: 992px) {
+            .main-purchase-layout {
+                flex-direction: row; /* Side-by-side on larger screens */
+                align-items: flex-start;
+            }
+            .car-details-and-manufacturer,
+            .customer-form-and-payment {
+                padding: 30px;
+            }
+            .car-details-info h2 {
+                font-size: 2.8em;
+            }
+            .car-details-info .price {
+                font-size: 2em;
+            }
+            .manufacturer-info h3 {
+                font-size: 2em;
+            }
+            .purchase-form-section h3 {
+                font-size: 2.2em;
+            }
+            .location-info h3 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .purchase-content {
+                padding: 25px;
+            }
+            .car-details-purchase img {
+                max-width: 90%;
+            }
+            .car-details-info h2 {
+                font-size: 2em;
+            }
+            .car-details-info .price {
+                font-size: 1.6em;
+            }
+            .manufacturer-info h3 {
+                font-size: 1.5em;
+            }
+            .purchase-form-section h3,
+            .location-info h3 {
+                font-size: 1.6em;
+            }
+            .payment-methods {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .submit-btn {
+                max-width: 200px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FP SELECTION</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="carros.html">Carros</a></li>
+                <li><a href="fale-conosco.html">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="purchase-section">
+        <div class="purchase-content">
+            <div class="main-purchase-layout">
+                <div class="car-details-and-manufacturer">
+                    <div class="car-details-purchase">
+                        <img id="carImage" src="" alt="Carro Selecionado">
+                        <div class="car-details-info">
+                            <h2 id="carTitle"></h2>
+                            <span class="year" id="carYear"></span>
+                            <p class="price" id="carPrice"></p>
+                            <p id="carDescription"></p>
+                        </div>
+                    </div>
+                    <div class="manufacturer-info">
+                        <h3 id="manufacturerName"></h3>
+                        <img id="manufacturerLogo" src="i" alt="Logo da Fabricante">
+                        <p id="manufacturerHistory"></p>
+                    </div>
+                </div>
+                <div class="customer-form-and-payment">
+                    <div class="purchase-form-section">
+                        <h3>Finalize sua Compra</h3>
+                        <form class="purchase-form" id="purchaseForm">
+                            <label for="fullName">Nome Completo:</label>
+                            <input type="text" id="fullName" placeholder="Seu nome completo" required>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" placeholder="seu@email.com" required>
+                            <label for="phone">Telefone:</label>
+                            <input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" required pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$">
+                            <label for="cpf">CPF:</label>
+                            <input type="text" id="cpf" placeholder="XXX.XXX.XXX-XX" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
+                            <label for="address">Endereço de Entrega:</label>
+                            <input type="text" id="address" placeholder="Rua, Número, Bairro" required>
+                            <label for="city">Cidade:</label>
+                            <input type="text" id="city" placeholder="Sua Cidade" required>
+                            <label for="state">Estado:</label>
+                            <select id="state" required>
+                                <option value="">Selecione um Estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                            <div class="payment-options">
+                                <h4>Escolha o Método de Pagamento</h4>
+                                <div class="payment-methods">
+                                    <div class="payment-method" data-method="pix">Pix</div>
+                                    <div class="payment-method" data-method="debit">Débito</div>
+                                    <div class="payment-method" data-method="credit">Crédito</div>
+                                </div>
+                            </div>
+                            <button type="submit" class="submit-btn">Confirmar Compra</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="location-info">
+                <h3>Venha nos Visitar!</h3>
+                <p>Nosso showroom está localizado em:</p>
+                <p><strong>FP Selection - Av. Beira Mar, 123 - Centro, Guarapari - ES, Brasil</strong></p>
+                <p>Teremos o prazer de recebê-lo para ver de perto o carro dos seus sonhos.</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3743.543253487893!2d-40.50388938507796!3d-20.66774978642993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9b95c569b48b81%3A0x4ae7949c48c7c2dd!2sAv.%20Beira%20Mar%2C%20123%20-%20Centro%2C%20Guarapari%20-%20ES%2C%2029215-060%2C%20Brazil!5e0!3m2!1sen!2sen!4v1698873627350!5m2!1sen!2sen" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p>Para agendar uma visita ou test drive, entre em contato através do nosso <a href="fale-conosco.html">Fale Conosco</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.scrollTo(0, 0);
+
+    const cars = [
+        {
+            image: "./img/carro-1.png",
+            title: "911 Turbo",
+            year: "2023",
+            description: "Explore o 2023 Porsche 911 Turbo, uma obra-prima da engenharia alemã...",
+            price: "R$ 1.500.000",
+            features: [/* Features omitidos por brevidade */],
+            manufacturer: {
+                name: "Porsche",
+                history: "Fundada em 1931 por Ferdinand Porsche... (resumo omitido)",
+                logo: "img/porcher-Photoroom.png"  /* Corrigido */
+            }
+        },
+        {
+            image: "./img/carro-2.png",
+            title: "Ferrari F8 Tributo",
+            year: "2021",
+            description: "A 2021 Ferrari F8 Tributo é um tributo à potência bruta e à eficiência aerodinâmica...",
+            price: "R$ 2.800.000",
+            features: [/* Features omitidos por brevidade */],
+            manufacturer: {
+                name: "Ferrari",
+                history: "A Ferrari S.p.A. é uma montadora italiana de carros esportivos de luxo...",
+                logo: "img/ferrari-Photoroom.png"  /* Corrigido */
+            }
+        },
+        {
+            image: "./img/carro-3.png",
+            title: "Lamborghini Aventador SVJ",
+            year: "2022",
+            description: "Liberte a fera com o 2022 Lamborghini Aventador SVJ...",
+            price: "R$ 4.000.000",
+            features: [/* Features omitidos por brevidade */],
+            manufacturer: {
+                name: "Lamborghini",
+                history: "Automobili Lamborghini S.p.A. é uma marca italiana de carros esportivos de luxo...",
+              logo: "img/lambo-Photoroom.png"  /* Corrigido */
+            }
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const carIndex = parseInt(params.get('car'));
+        if (!isNaN(carIndex) && cars.length > carIndex) {
+            const selectedCar = cars.at(carIndex);
+            if (selectedCar) {
+                document.getElementById('carImage').src = selectedCar.image;
+                document.getElementById('carImage').alt = selectedCar.title;
+                document.getElementById('carTitle').textContent = selectedCar.title;
+                document.getElementById('carYear').textContent = selectedCar.year;
+                document.getElementById('carPrice').textContent = selectedCar.price;
+                document.getElementById('carDescription').textContent = selectedCar.description;
+                document.getElementById('manufacturerName').textContent = `Sobre a ${selectedCar.manufacturer.name}`;
+                document.getElementById('manufacturerLogo').src = selectedCar.manufacturer.logo;
+                document.getElementById('manufacturerLogo').alt = `Logo da ${selectedCar.manufacturer.name}`;
+                document.getElementById('manufacturerHistory').textContent = selectedCar.manufacturer.history;
+            } else {
+                alert('Carro não encontrado (dados inválidos)! Retornando para a lista de carros.');
+                window.location.href = 'carros.html';
+            }
+        } else {
+            alert('Carro não encontrado! Retornando para a lista de carros.');
+            window.location.href = 'carros.html';
+        }
+
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        let selectedPaymentMethod = null;
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                if (selectedPaymentMethod) selectedPaymentMethod.classList.remove('selected');
+                method.classList.add('selected');
+                selectedPaymentMethod = method;
+            });
+        });
+
+        const purchaseForm = document.getElementById('purchaseForm');
+
+        purchaseForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const cpf = document.getElementById('cpf').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+
+            if (!selectedPaymentMethod) {
+                alert('Por favor, selecione um método de pagamento.');
+                return;
+            }
+
+            const paymentMethod = selectedPaymentMethod.dataset.method;
+            const selectedCar = cars.at(carIndex);
+
+            if (selectedCar) {
+                const confirmationMessage = `Obrigado, ${fullName}!
+Seu interesse no ${selectedCar.title} (${selectedCar.year}) no valor de ${selectedCar.price} foi registrado.
+Detalhes da Compra (Fictícios):
+Email: ${email}
+Telefone: ${phone}
+CPF: ${cpf}
+Endereço de Entrega: ${address}, ${city} - ${state}
+Método de Pagamento Escolhido: ${paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1)}
+Um de nossos consultores entrará em contato em breve para dar prosseguimento à sua solicitação.
+Agradecemos a preferência pela FP Selection!`;
+                alert(confirmationMessage);
+            }
+
+            purchaseForm.reset();
+            if (selectedPaymentMethod) selectedPaymentMethod.classList.remove('selected');
+            selectedPaymentMethod = null;
+        });
+    });
+    </script>
+</body>
+</html>

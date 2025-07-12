@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP Selection - Fale Conosco</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .contact-section h2 {
+            font-size: 3em;
+            color: #beff1b;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .contact-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.8;
+        }
+
+        .contact-info p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .contact-info strong {
+            color: #beff1b;
+        }
+
+        .contact-info a {
+            color: #beff1b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #a7e600;
+            text-decoration: underline;
+        }
+
+        .company-description {
+            margin-top: 30px;
+            font-size: 1em;
+            max-width: 700px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .contact-section h2 {
+                font-size: 2.5em;
+            }
+            .contact-info {
+                padding: 30px;
+            }
+            .contact-info p {
+                font-size: 1em;
+            }
+            .company-description {
+                font-size: 0.9em;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FP SELECTION</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="carros.html">Carros</a></li>
+                <li><a href="fale-conosco.html">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contact-section">
+        <h2>Fale Conosco</h2>
+        <div class="contact-info">
+            <p>Se você tiver alguma dúvida, sugestão ou quiser agendar uma visita, entre em contato conosco:</p>
+            <p><strong>Telefone:</strong> <a href="tel:+5527999998888">+55 (27) 99999-8888</a></p>
+            <p><strong>Email:</strong> <a href="mailto:contato@fpselection.com">contato@fpselection.com</a></p>
+            <p><strong>Endereço:</strong> Av. Beira Mar, 123 - Centro, Guarapari - ES, Brasil</p>
+            <p><strong>Horário de Atendimento:</strong> Segunda a Sexta, das 9h às 18h</p>
+        </div>
+        <p class="company-description">
+            Na **FP Selection**, somos apaixonados por carros de luxo e superesportivos. Nosso objetivo é proporcionar uma experiência de compra exclusiva e inesquecível para nossos clientes, oferecendo uma seleção impecável dos veículos mais desejados do mundo. Com anos de experiência no mercado, garantimos transparência, confiança e um atendimento personalizado que supera as expectativas. Venha nos visitar e descubra o carro dos seus sonhos!
+        </p>
+    </section>
+</body>
+</html>
