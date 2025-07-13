@@ -25,7 +25,9 @@ if %errorlevel% neq 0 (
 :: Mensagem do commit
 set /p msg="Digite a mensagem do commit: "
 
+
 :: Add e commit primeiro
+
 git add .
 git commit -m "%msg%"
 
